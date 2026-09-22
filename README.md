@@ -292,11 +292,26 @@ To make it easy I have described the entire gui script the purpose so people can
 **Section 5: Control Action Buttons (Lines 32 to 37)**
     ttk.Button(btns, text='Encrypt', command=self.encrypt): Binds button press to the encryption routine. Note that ‘self.encrypt’ is passed as a function reference without parentheses so Tkinter executes it only when clicked.
     ttk.Button(btns, text='Visual Crack (Brute / Freq)', command=self.visual_crack): Triggers the cryptanalysis engine to break ciphers without user-supplied keys.
-    Section 6: Hacker Console / Visualisation Area (Lines 39 to 43)
+   
+**Section 6: Hacker Console / Visualisation Area (Lines 39 to 43)**
     self.viz = scrolledtext.ScrolledText(root, height=18, bg='#111', fg='#0f0', font=('Courier', 10)): Configures a dedicated terminal simulation window styled with a black background (‘#111’), bright green text (‘#0f0’), and a monospace font (‘Courier’) so tabular mathematical logs line up perfectly.
     Section 7: Helper and Event Processing Methods (Lines 45 to 70)
     _get(self): Reads current content using ‘self.input_box.get('1.0', 'end').strip()’, returning sanitized text and key tuples.
     ‘encrypt(self)’ and ‘decrypt(self): Wraps execution inside ‘try/except Exception as e:’ blocks. If an invalid key is supplied (e.g., non-numeric Caesar shift), a friendly error dialog is presented via ‘messagebox.showerror()’ instead of crashing the program.
 
+**Section 8: Caesar Visual Cracker Logic (Lines 80 to 93)**
+    Iterates through all 26 possible shifts. For each shift, it decrypts the text and calculates the Chi-squared statistic against expected standard English letter frequencies: The shift yielding the minimum Chi-squared error is tagged as 'best so far' and printed to the visual console in green.
+
+**Section 9: Vigenere Visual Cracker Logic (Lines 95 to 124)**
+    Cracking Vigenere without a key follows a two-stage statistical pipeline:
+    1. Key Length Estimation via Index of Coincidence (IoC): For candidate key lengths kl = 1 to 15, text is sliced into cosets ‘text[i::kl]’. The average IoC is calculated and displayed as an ASCII bar chart (‘# * int(avg * 200)’). A peak IoC near 0.066 reveals the correct key length.
+    2. Per-Position Shift Recovery: With key length L identified, each coset represents a simple Caesar cipher. The script computes Chi-squared scores across 26 shifts for each slice, identifies the lowest variance character, reconstructs the keyword, and outputs the decrypted plaintext.
 
 
+**Step 6 -- RUN**
+    
+    cd ~/crypto_tool/gui
+    python3 cipher_gui.py
+
+Now type a ciphertext, click Visual Crack, and watch the IC table and χ² chart reveal the key.
+<img width="1407" height="852" alt="3 4 1 Encryption Test of CLI and GUI Caesar " src="https://github.com/user-attachments/assets/a6fa83e8-8fa9-4182-9f8b-2f81f62baf4f" />
