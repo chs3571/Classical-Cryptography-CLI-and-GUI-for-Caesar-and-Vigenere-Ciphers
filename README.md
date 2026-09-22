@@ -315,3 +315,6 @@ To make it easy I have described the entire gui script the purpose so people can
 
 Now type a ciphertext, click Visual Crack, and watch the IC table and χ² chart reveal the key.
 <img width="1407" height="852" alt="3 4 1 Encryption Test of CLI and GUI Caesar " src="https://github.com/user-attachments/assets/a6fa83e8-8fa9-4182-9f8b-2f81f62baf4f" />
+<img width="1420" height="875" alt="3 4 4 Decrypting Vegnere from cipher text" src="https://github.com/user-attachments/assets/2baadc77-f194-480c-b02c-39eff8ce8106" />
+
+Drop a message if this helps...
