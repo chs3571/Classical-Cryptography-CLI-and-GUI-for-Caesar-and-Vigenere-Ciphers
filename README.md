@@ -62,4 +62,72 @@ Explanation: Creates an isolated sandbox (‘venv’) to keep application packag
 
 Explanation: Tkinter is Python's native binding to the Tk GUI toolkit. Under Linux/Kali, it must be installed via system apt repositories so Python can render X11/desktop windows.
 
+**Methodology**
+    The application was developed following modular software design principles. The backend mathematics and cryptanalytic cracking engine reside in ‘~/crypto_tool/cli/classical_cipher.py’, while the user-facing GUI application resides in ‘~/crypto_tool/gui/cipher_gui.py’. The GUI imports functionality dynamically without code duplication
+
+**Backend Engine: classical_cipher.py**  
     
+    # Caesar Encryption and Decryption
+    def caesar_encrypt(text, shift):
+    result = []
+    for ch in text:
+        if ch.isalpha():
+            base = ord("A") if ch.isupper() else ord("a")
+            result.append(chr((ord(ch) - base + shift) % 26 + base))
+        else:
+            result.append(ch)
+    return "".join(result)
+    
+    def caesar_decrypt(text, shift):
+    return caesar_encrypt(text, -shift)
+    
+    # Vigenere Encryption and Decryption
+    def vigenere_encrypt(text, key):
+    key = key.lower()
+    result, ki = [], 0
+    for ch in text:
+        if ch.isalpha():
+            shift = ord(key[ki % len(key)]) - ord("a")
+            base = ord("A") if ch.isupper() else ord("a")
+            result.append(chr((ord(ch) - base + shift) % 26 + base))
+            ki += 1
+        else:
+            result.append(ch)
+    return "".join(result)
+    
+    def vigenere_decrypt(text, key):
+    key = key.lower()
+    result, ki = [], 0
+    for ch in text:
+        if ch.isalpha():
+            shift = ord(key[ki % len(key)]) - ord("a")
+            base = ord("A") if ch.isupper() else ord("a")
+            result.append(chr((ord(ch) - base - shift) % 26 + base))
+            ki += 1
+        else:
+            result.append(ch)
+    return "".join(result)
+    
+    # Statistical Cryptanalysis Tools
+    
+    def index_of_coincidence(text):
+    text = [c for c in text.lower() if c.isalpha()]
+    n = len(text)
+    if n < 2: return 0
+    freq = {}
+    for c in text: freq[c] = freq.get(c, 0) + 1
+    return sum(f * (f - 1) for f in freq.values()) / (n * (n - 1))
+    
+    def chi_squared(text):
+    text = [c for c in text.lower() if c.isalpha()]
+    n = len(text)
+    if n == 0: return 1e9
+    freq = {c: 0 for c in ALPHA}
+    for c in text: freq[c] += 1
+    score = 0
+    for c in ALPHA:
+        expected = ENGLISH_FREQ[c] / 100 * n
+        score += (freq[c] - expected) ** 2 / expected
+    return score
+
+
