@@ -5,12 +5,13 @@
 **Introduction** 
 
 **Background** 
-
       Cryptography has safeguarded human communications across history, evolving from ancient mechanical ciphers to modern mathematical encryption suites. Classical ciphers form the theoretical foundation of all modern confidentiality protocols: 
+      
 **Caesar Cipher:** A monoalphabetic substitution cipher where each character in the plaintext is shifted by a fixed numeric offset (key k) down the alphabet modulo 26. While historically significant, it has an extremely small keyspace of only 25 usable transformations, making it trivially susceptible to exhaustive brute-force search. 
+
 **Vigenere Cipher:** Introduced to counteract the vulnerabilities of monoalphabetic ciphers, it utilizes a keyword to implement polyalphabetic substitution. Each letter of the key determines an independent Caesar shift for the corresponding plaintext letter. For centuries considered 'le chiffre indechiffrable' (the unbreakable cipher), it was eventually proven vulnerable through periodic statistical analysis pioneered by Charles Babbage and Friedrich Kasiski.
 
-Problem Statement 
+**Problem Statement**
     While contemporary cybersecurity curricula introduce classical ciphers early on, beginners  frequently struggle to understand how statistical cryptanalysis breaks encryption in practice. Standard terminal tools output final plaintexts instantaneously, concealing the algorithmic mechanics of how an attacker reasons through statistical variance, calculates the Index of Coincidence, or evaluates letter frequency distributions. There is an educational requirement for a unified application that pairs functional CLI commands with an interactive GUI featuring a transparent 'hacker console' that displays real-time cryptanalysis steps.
 
 **Objectives**
@@ -22,7 +23,19 @@ Problem Statement
 **Lab/Environment Setup**
     Setting up the development lab requires configuring dependencies, folder structures, and virtual execution spaces. Below is the exact chronological sequence of terminal commands used, accompanied by beginner explanations.
 
-**Step 1:** System Repository Update and Upgrade
-Command: _sudo apt update && sudo apt upgrade -y_
+**Step 1**: System Repository Update and Upgrade
+**Command:** 
+    
+    sudo apt update && sudo apt upgrade -y
+
 Explanation: Refreshes the local package index against Kali mirrors and upgrades all packages to prevent compatibility conflicts.
+
+**Step 2**: Installing Python 3, Pip, and Venv
+**Command:** 
+    
+    sudo apt install python3 python3-pip python3-venv -y
+    
+Explanation: Installs the Python 3 interpreter, the pip package manager, and the venv virtual environment module.
+
+
     
