@@ -37,5 +37,29 @@ Explanation: Refreshes the local package index against Kali mirrors and upgrades
     
 Explanation: Installs the Python 3 interpreter, the pip package manager, and the venv virtual environment module.
 
+**Step 3**: Creating Project Directory Structure
+**Command**: 
+    
+    mkdir -p ~/crypto-tool/{cli,gui,modern,cracking} && cd ~/crypto-tool
+
+Explanation: Creates a structured folder hierarchy to separate CLI scripts (‘cli’), GUI applications (‘gui’), future modern cryptography ciphers (‘modern’), and cracking modules (‘cracking’).
+
+**Step 4**: Creating and Activating Python Virtual Environment
+**Command**
+
+    python3 -m venv venv
+
+**Command**: 
+    
+    source venv/bin/activate
+
+Explanation: Creates an isolated sandbox (‘venv’) to keep application packages cleanly isolated from the system Python installation. The terminal prompt prepends ‘(venv)’ to signify active isolation.
+
+**Step 5**: Installing the Tkinter GUI Library
+**Command**: 
+    
+    sudo apt install python3-tk -y
+
+Explanation: Tkinter is Python's native binding to the Tk GUI toolkit. Under Linux/Kali, it must be installed via system apt repositories so Python can render X11/desktop windows.
 
     
