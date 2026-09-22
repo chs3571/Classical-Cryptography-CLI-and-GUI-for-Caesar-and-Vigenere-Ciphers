@@ -266,3 +266,37 @@ Explanation: Tkinter is Python's native binding to the Tk GUI toolkit. Under Lin
         CipherGUI(root)
         root.mainloop()
 
+To make it easy I have described the entire gui script the purpose so people can learn and make changes where required
+
+**Section 1: The Shebang and Imports (Lines 1 to 8)**
+#!/usr/bin/env python3: A shebang line informing Unix-based shells to execute the script using the Python 3 interpreter.
+import tkinter as tk: Imports Python's built-in GUI library and assigns it the standard alias ‘tk’.
+from tkinter import ttk, scrolledtext, messagebox: Imports ‘ttk’ (Themed Tkinter widgets like comboboxes), ‘scrolledtext’ (text areas with built-in scrollbars), and ‘messagebox’ (modal error popups).
+import string, sys, os: Utility modules. Specifically, ‘sys.path.append (os.path.join(os.path.dirname(__file__), '..', 'cli'))’ modifies Python's import search path so the GUI script in ‘gui/’ can directly import cryptographic functions from ‘cli/classical_cipher.py’.
+
+**Section 2: Class Blueprint and Window Construction (Lines 10 to 13)**
+class CipherGUI:  Encapsulates the entire application state and widget hierarchy inside an object-oriented blueprint.
+def __init__(self, root): The constructor method executed when the app initializes. ‘self’ allows methods to access stored widgets and state.
+root.title('Classical Cipher Studio -- Encrypt | Decrypt | Crack'): Configures the window title bar.
+root.geometry('1000x720'): Sets initial desktop dimensions to 1000 pixels wide by 720 pixels tall.
+
+**Section 3: Top Control Bar -- Dropdown and Key Entry (Lines 15 to 21)**
+top = ttk.Frame(root, padding=8); top.pack(fill='x'): Invisible container pinned to the top of the window, stretching horizontally.
+self.cipher = ttk.Combobox(top, values=['Caesar', 'Vigenere'], state='readonly', width=12): Dropdown selector allowing users to toggle between ciphers without invalid manual entries.
+self.key_entry = ttk.Entry(top, width=20): Single-line input field where users enter numeric shifts (e.g., 3) or keyword strings (e.g., lemon).
+
+**Section 4: Middle Row -- Input and Output Text Areas (Lines 23 to 30)**
+mid = ttk.Frame(root, padding=8); mid.pack(fill='both', expand=True): Container configured to expand dynamically if the user resizes the window.
+‘self.input_box’ and ‘self.output_box’: Created via ‘scrolledtext.ScrolledText(mid, height=8, width=50)’. Organized using ‘.grid(row=1, column=0)’ and ‘.grid(row=1, column=1)’ side-by-side to allow convenient text comparisons.
+
+**Section 5: Control Action Buttons (Lines 32 to 37)**
+ttk.Button(btns, text='Encrypt', command=self.encrypt): Binds button press to the encryption routine. Note that ‘self.encrypt’ is passed as a function reference without parentheses so Tkinter executes it only when clicked.
+ttk.Button(btns, text='Visual Crack (Brute / Freq)', command=self.visual_crack): Triggers the cryptanalysis engine to break ciphers without user-supplied keys.
+Section 6: Hacker Console / Visualisation Area (Lines 39 to 43)
+self.viz = scrolledtext.ScrolledText(root, height=18, bg='#111', fg='#0f0', font=('Courier', 10)): Configures a dedicated terminal simulation window styled with a black background (‘#111’), bright green text (‘#0f0’), and a monospace font (‘Courier’) so tabular mathematical logs line up perfectly.
+Section 7: Helper and Event Processing Methods (Lines 45 to 70)
+_get(self): Reads current content using ‘self.input_box.get('1.0', 'end').strip()’, returning sanitized text and key tuples.
+‘encrypt(self)’ and ‘decrypt(self): Wraps execution inside ‘try/except Exception as e:’ blocks. If an invalid key is supplied (e.g., non-numeric Caesar shift), a friendly error dialog is presented via ‘messagebox.showerror()’ instead of crashing the program.
+
+
+
